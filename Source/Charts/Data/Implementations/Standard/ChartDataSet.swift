@@ -217,6 +217,7 @@ open class ChartDataSet: ChartBaseDataSet
         rounding: ChartDataSetRounding) -> Int
     {
         var closest = partitioningIndex { $0.x >= xValue }
+        
         guard closest < endIndex else { return rounding == .closest ? (endIndex-1) : -1 }
 
         var closestXValue = self[closest].x
@@ -424,6 +425,7 @@ extension ChartDataSet: MutableCollection {
             entries[position] = newValue
         }
     }
+
 }
 
 // MARK: RandomAccessCollection

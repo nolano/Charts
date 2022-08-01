@@ -353,6 +353,7 @@ open class RadarChartRenderer: LineRadarRenderer
         
         for high in indices
         {
+            
             guard
                 let set = chart.data?[high.dataSetIndex] as? RadarChartDataSetProtocol,
                 set.isHighlightEnabled

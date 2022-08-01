@@ -760,6 +760,10 @@ open class LineChartRenderer: LineRadarRenderer
         
         for high in indices
         {
+            if (high.dataSetIndex > lineData.dataCount - 1) {
+                continue
+            }
+            
             guard let set = lineData[high.dataSetIndex] as? LineChartDataSetProtocol,
                   set.isHighlightEnabled
             else { continue }

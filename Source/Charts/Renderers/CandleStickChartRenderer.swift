@@ -361,6 +361,9 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
         
         for high in indices
         {
+            if (high.dataSetIndex > candleData.dataCount - 1) {
+                continue
+            }
             guard
                 let set = candleData[high.dataSetIndex] as? CandleChartDataSetProtocol,
                 set.isHighlightEnabled

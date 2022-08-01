@@ -441,6 +441,9 @@ extension ChartData: MutableCollection
     {
         return dataSets.endIndex
     }
+    public var dataCount: Index {
+        return dataSets.count
+    }
 
     public func index(after: Index) -> Index
     {

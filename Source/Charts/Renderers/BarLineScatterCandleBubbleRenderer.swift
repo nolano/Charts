@@ -104,10 +104,10 @@ open class BarLineScatterCandleBubbleRenderer: NSObject, DataRenderer
             let high = chart.highestVisibleX
             
             let entryFrom = dataSet.entryForXValue(low, closestToY: .nan, rounding: .down)
-            let entryTo = dataSet.entryForXValue(high, closestToY: .nan, rounding: .up)
+            let entryTo = dataSet.entryForXValue(high, closestToY: .nan, rounding: .up) ?? dataSet.entryForIndex(dataSet.entryCount - 1)
             
             self.min = entryFrom == nil ? 0 : dataSet.entryIndex(entry: entryFrom!)
-            self.max = entryTo == nil ? 0 : dataSet.entryIndex(entry: entryTo!)
+            self.max = entryTo == nil ? dataSet.entryCount : dataSet.entryIndex(entry: entryTo!)
             range = Int(Double(self.max - self.min) * phaseX)
         }
     }
