@@ -211,7 +211,7 @@ open class RadarChartRenderer: LineRadarRenderer
         for i in data.indices
         {
             guard let
-                dataSet = data[i] as? RadarChartDataSetProtocol,
+                    dataSet = data[safe: i] as? RadarChartDataSetProtocol,
                 shouldDrawValues(forDataSet: dataSet)
                 else { continue }
             
@@ -353,9 +353,8 @@ open class RadarChartRenderer: LineRadarRenderer
         
         for high in indices
         {
-            
             guard
-                let set = chart.data?[high.dataSetIndex] as? RadarChartDataSetProtocol,
+                let set = chart.data?[safe: high.dataSetIndex] as? RadarChartDataSetProtocol,
                 set.isHighlightEnabled
                 else { continue }
             

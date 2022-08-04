@@ -262,7 +262,7 @@ open class CombinedChartData: BarLineScatterCandleBubbleChartData
     /// - Parameters:
     ///   - highlight: current highlight
     /// - Returns: dataset related to highlight
-    @objc open func getDataSetByHighlight(_ highlight: Highlight) -> ChartDataSetProtocol!
+    @objc open func getDataSetByHighlight(_ highlight: Highlight) -> ChartDataSetProtocol?
     {
         guard allData.indices.contains(highlight.dataIndex) else
         {
@@ -277,7 +277,7 @@ open class CombinedChartData: BarLineScatterCandleBubbleChartData
         }
 
         // The value of the highlighted entry could be NaN - if we are not interested in highlighting a specific value.
-        return data[highlight.dataSetIndex]
+        return data[safe: highlight.dataSetIndex]
     }
 
     // MARK: Unsupported Collection Methods

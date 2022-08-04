@@ -259,7 +259,7 @@ open class ChartData: NSObject, ExpressibleByArrayLiteral
     @objc open func entry(for highlight: Highlight) -> ChartDataEntry?
     {
         guard highlight.dataSetIndex < dataSets.endIndex else { return nil }
-        return self[highlight.dataSetIndex].entryForXValue(highlight.x, closestToY: highlight.y)
+        return self[safe: highlight.dataSetIndex]?.entryForXValue(highlight.x, closestToY: highlight.y)
     }
     
     /// **IMPORTANT: This method does calculations at runtime. Use with care in performance critical situations.**
@@ -452,8 +452,14 @@ extension ChartData: MutableCollection
 
     public subscript(position: Index) -> Element
     {
-        get { return dataSets[position] }
+        get { return dataSets[position]}
         set { self._dataSets[position] = newValue }
+    }
+    
+    public subscript(safe index: Index) -> Element?
+    {
+        get { return dataSets[safe: index]}
+        set { self._dataSets[index] = newValue!}
     }
 }
 
@@ -572,6 +578,16 @@ extension ChartData
         assert(!(self is CombinedChartData), "\(#function) not supported for CombinedData")
 
         guard let index = firstIndex(where: { $0.entryForXValue(entry.x, closestToY: entry.y) === entry }) else { return nil }
+        return self[index]
+    }
+}
+
+
+extension Array {
+    subscript (safe index: Int) -> Element? {
+        guard index >= 0 && index < self.count else {
+            return nil
+        }
         return self[index]
     }
 }

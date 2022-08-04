@@ -1725,8 +1725,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         guard let h = getHighlightByTouchPoint(pt) else {
             return nil
         }
-
-        return data?[h.dataSetIndex] as? BarLineScatterCandleBubbleChartDataSetProtocol
+        return data?[safe: h.dataSetIndex] as? BarLineScatterCandleBubbleChartDataSetProtocol
     }
 
     /// The current x-scale factor

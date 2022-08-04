@@ -496,7 +496,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
         for highlight in highlighted
         {
             guard
-                let set = data?[highlight.dataSetIndex],
+                let set = data?[safe: highlight.dataSetIndex],
                 let e = data?.entry(for: highlight)
                 else { continue }
             

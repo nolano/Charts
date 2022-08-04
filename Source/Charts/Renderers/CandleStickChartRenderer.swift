@@ -282,7 +282,7 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
             for i in candleData.indices
             {
                 guard let
-                    dataSet = candleData[i] as? BarLineScatterCandleBubbleChartDataSetProtocol,
+                        dataSet = candleData[safe: i] as? BarLineScatterCandleBubbleChartDataSetProtocol,
                     shouldDrawValues(forDataSet: dataSet)
                     else { continue }
                 
@@ -361,11 +361,8 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
         
         for high in indices
         {
-            if (high.dataSetIndex > candleData.dataCount - 1) {
-                continue
-            }
             guard
-                let set = candleData[high.dataSetIndex] as? CandleChartDataSetProtocol,
+                let set = candleData[safe: high.dataSetIndex] as? CandleChartDataSetProtocol,
                 set.isHighlightEnabled
                 else { continue }
             

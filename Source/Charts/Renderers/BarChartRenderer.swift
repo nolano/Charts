@@ -276,7 +276,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         // Populate logically ordered nested elements into accessibilityOrderedElements in drawDataSet()
         for i in barData.indices
         {
-            guard let set = barData[i] as? BarChartDataSetProtocol else {
+            guard let set = barData[safe: i] as? BarChartDataSetProtocol else {
                 fatalError("Datasets for BarChartRenderer must conform to IBarChartDataset")
             }
 
@@ -445,7 +445,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
             for dataSetIndex in barData.indices
             {
                 guard
-                    let dataSet = barData[dataSetIndex] as? BarChartDataSetProtocol,
+                    let dataSet = barData[safe: dataSetIndex] as? BarChartDataSetProtocol,
                     shouldDrawValues(forDataSet: dataSet)
                     else { continue }
                 
@@ -700,11 +700,8 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         
         for high in indices
         {
-            if (high.dataSetIndex > barData.dataCount - 1) {
-                continue
-            }
             guard
-                let set = barData[high.dataSetIndex] as? BarChartDataSetProtocol,
+                let set = barData[safe: high.dataSetIndex] as? BarChartDataSetProtocol,
                 set.isHighlightEnabled
                 else { continue }
             

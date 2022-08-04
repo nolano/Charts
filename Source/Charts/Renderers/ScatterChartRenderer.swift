@@ -116,7 +116,7 @@ open class ScatterChartRenderer: LineScatterCandleRadarRenderer
             
             for i in scatterData.indices
             {
-                guard let dataSet = scatterData[i] as? ScatterChartDataSetProtocol,
+                guard let dataSet = scatterData[safe: i] as? ScatterChartDataSetProtocol,
                       shouldDrawValues(forDataSet: dataSet)
                     else { continue }
                 
@@ -203,7 +203,7 @@ open class ScatterChartRenderer: LineScatterCandleRadarRenderer
         for high in indices
         {
             guard
-                let set = scatterData[high.dataSetIndex] as? ScatterChartDataSetProtocol,
+                let set = scatterData[safe: high.dataSetIndex] as? ScatterChartDataSetProtocol,
                 set.isHighlightEnabled
                 else { continue }
             

@@ -164,7 +164,7 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
 
         for i in bubbleData.indices
         {
-            guard let dataSet = bubbleData[i] as? BubbleChartDataSetProtocol,
+            guard let dataSet = bubbleData[safe: i] as? BubbleChartDataSetProtocol,
                   shouldDrawValues(forDataSet: dataSet)
             else
             {
@@ -251,11 +251,8 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
         
         for high in indices
         {
-            if (high.dataSetIndex > bubbleData.dataCount - 1) {
-                continue
-            }
             guard
-                let dataSet = bubbleData[high.dataSetIndex] as? BubbleChartDataSetProtocol,
+                let dataSet = bubbleData[safe: high.dataSetIndex] as? BubbleChartDataSetProtocol,
                 dataSet.isHighlightEnabled,
                 let entry = dataSet.entryForXValue(high.x, closestToY: high.y) as? BubbleChartDataEntry,
                 isInBoundsX(entry: entry, dataSet: dataSet)
